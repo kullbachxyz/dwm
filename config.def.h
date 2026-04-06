@@ -1,7 +1,14 @@
 /* See LICENSE file for copyright and license details. */
 
+/* Enable special function keys */
+#include <X11/XF86keysym.h>
+
+/* Default programs */
+#define TERMINAL "st"
+#define BROWSER "librewolf"
+
 /* appearance */
-static const unsigned int borderpx  = 1;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
@@ -65,11 +72,14 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,             		XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY|ShiftMask,             XK_BackSpace, spawn,       SHCMD("sysact") },
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("maimpick") },
+	{ MODKEY,             		XK_o,      spawn,          SHCMD("passmenu") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
 	{ MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_z,	   zoom,           {0} },
@@ -82,10 +92,10 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,                       XK_Left,   focusmon,       {.i = -1 } },
+	{ MODKEY|ShiftMask,             XK_Left,   tagmon,         {.i = -1 } },
+	{ MODKEY,                       XK_Right,  focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_Right,  tagmon,         {.i = +1 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -96,6 +106,16 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_x,      quit,           {0} },
+	{ MODKEY,                      	XK_plus,   spawn, SHCMD("volume up") },
+	{ MODKEY|ShiftMask,            	XK_plus,   spawn, SHCMD("volume upp") },
+	{ MODKEY,                      	XK_minus,  spawn, SHCMD("volume down") },
+	{ MODKEY|ShiftMask,            	XK_minus,  spawn, SHCMD("volume downn") },
+	{ MODKEY|ShiftMask,            	XK_m,  	   spawn, SHCMD("volume toggle") },
+	{ 0, XF86XK_AudioLowerVolume,  	spawn,     SHCMD("volume down") },
+	{ 0, XF86XK_AudioRaiseVolume,  	spawn,     SHCMD("volume up") },
+	{ 0, XF86XK_AudioMute,         	spawn,     SHCMD("volume toggle") },
+	{ 0, XF86XK_MonBrightnessDown, 	spawn,     SHCMD("brightness down") },
+	{ 0, XF86XK_MonBrightnessUp,   	spawn,     SHCMD("brightness up") },
 };
 
 /* button definitions */
