@@ -84,7 +84,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_n,      spawn,          {.v = newscmd } },
 	{ MODKEY|ShiftMask,             XK_BackSpace, spawn,       SHCMD("sysact") },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("maimpick") },
-	{ MODKEY,             		XK_o,      spawn,          SHCMD("passmenu") },
+	{ MODKEY,             		XK_o,      spawn,          SHCMD("~/.local/bin/passmenu") },
 	{ MODKEY,             		XK_F3,     spawn,          SHCMD("displayselect") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
