@@ -74,9 +74,11 @@ static const char *filemancmd[] = { "st", "-e", "lf", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
+	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "bluetui", NULL } } },
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
 	{ MODKEY,             		XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browsercmd } },
+	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "wlctl", NULL } } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = emailcmd } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = filemancmd } },
 	{ MODKEY,                       XK_n,      spawn,          {.v = newscmd } },
@@ -115,16 +117,16 @@ static const Key keys[] = {
 	TAGKEYS(                        XK_8,                      7)
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_x,      quit,           {0} },
-	{ MODKEY,                      	XK_plus,   spawn, SHCMD("volume up") },
-	{ MODKEY|ShiftMask,            	XK_plus,   spawn, SHCMD("volume upp") },
-	{ MODKEY,                      	XK_minus,  spawn, SHCMD("volume down") },
-	{ MODKEY|ShiftMask,            	XK_minus,  spawn, SHCMD("volume downn") },
-	{ MODKEY|ShiftMask,            	XK_m,  	   spawn, SHCMD("volume toggle") },
-	{ 0, XF86XK_AudioLowerVolume,  	spawn,     SHCMD("volume down") },
-	{ 0, XF86XK_AudioRaiseVolume,  	spawn,     SHCMD("volume up") },
-	{ 0, XF86XK_AudioMute,         	spawn,     SHCMD("volume toggle") },
-	{ 0, XF86XK_MonBrightnessDown, 	spawn,     SHCMD("brightness down") },
-	{ 0, XF86XK_MonBrightnessUp,   	spawn,     SHCMD("brightness up") },
+	{ MODKEY,                      	XK_plus,   spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,            	XK_plus,   spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%+; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY,                      	XK_minus,  spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,            	XK_minus,  spawn, SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 15%-; kill -44 $(pidof dwmblocks)") },
+	{ MODKEY|ShiftMask,            	XK_m,  	   spawn, SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -44 $(pidof dwmblocks)") },
+	{ 0, XF86XK_AudioLowerVolume,  	spawn,     SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-; kill -44 $(pidof dwmblocks)") },
+	{ 0, XF86XK_AudioRaiseVolume,  	spawn,     SHCMD("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+; kill -44 $(pidof dwmblocks)") },
+	{ 0, XF86XK_AudioMute,         	spawn,     SHCMD("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle; kill -44 $(pidof dwmblocks)") },
+	{ 0, XF86XK_MonBrightnessDown, 	spawn,     SHCMD("brightnessctl set 10-") },
+	{ 0, XF86XK_MonBrightnessUp,   	spawn,     SHCMD("brightnessctl set 10+") },
 };
 
 /* button definitions */
