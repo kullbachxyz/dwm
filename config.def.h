@@ -82,7 +82,7 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "bluetui", NULL } } },
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,             		XK_Return, spawn,          {.v = termcmd } },
+	{ MODKEY,             		      XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_w,      spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "wlctl", NULL } } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = emailcmd } },
@@ -90,8 +90,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_n,      spawn,          {.v = newscmd } },
 	{ MODKEY|ShiftMask,             XK_BackSpace, spawn,       SHCMD("sysact") },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("maimpick") },
-	{ MODKEY,             		XK_o,      spawn,          SHCMD("~/.local/bin/passmenu") },
-	{ MODKEY,             		XK_F3,     spawn,          SHCMD("displayselect") },
+	{ MODKEY,             		      XK_o,      spawn,          SHCMD("~/.local/bin/passmenu") },
+	{ MODKEY,             		      XK_F3,     spawn,          SHCMD("displayselect") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -101,7 +101,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY,                       XK_z,	   zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
-	{ MODKEY,	                XK_q,      killclient,     {0} },
+	{ MODKEY,	                      XK_q,      killclient,     {0} },
 	/*{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },*/
 	/*{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },*/
 	/*{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },*/
@@ -159,4 +159,3 @@ static const Button buttons[] = {
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
 	{ ClkTagBar,            MODKEY,         Button3,        toggletag,      {0} },
 };
-
