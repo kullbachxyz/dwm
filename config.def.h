@@ -76,7 +76,7 @@ static const char *termcmd[]  = { "st", NULL };
 static const char *browsercmd[] = { "librewolf", NULL };
 static const char *emailcmd[] = { "st", "-e", "neomutt", NULL };
 static const char *newscmd[] = { "st", "-e", "newsraft", NULL };
-static const char *filemancmd[] = { "st", "-e", "lf", NULL };
+static const char *filemancmd[] = { "st", "-e", "lfub", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
