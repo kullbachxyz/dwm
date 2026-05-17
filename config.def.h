@@ -89,7 +89,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_r,      spawn,          {.v = filemancmd } },
 	{ MODKEY,                       XK_n,      spawn,          {.v = newscmd } },
 	{ MODKEY|ShiftMask,             XK_BackSpace, spawn,       SHCMD("sysact") },
-	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("maimpick") },
+	{ MODKEY,                       XK_s,      spawn,          SHCMD("maimpick") },
 	{ MODKEY,             		      XK_o,      spawn,          SHCMD("~/.local/bin/passmenu") },
 	{ MODKEY,             		      XK_F3,     spawn,          SHCMD("displayselect") },
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
@@ -99,7 +99,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = -1 } },
 	{ MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY,                       XK_z,	   zoom,           {0} },
+	{ MODKEY,                       XK_z,	     zoom,           {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,	                      XK_q,      killclient,     {0} },
 	/*{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },*/
