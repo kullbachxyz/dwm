@@ -1,4 +1,6 @@
 dwm
+dwm-*.tar.gz
 *.rej
+*.orig
 *.o
 config.h
