@@ -27,9 +27,9 @@ static const char col_surface0[]    = "#313244";
 static const char col_mauve[]       = "#cba6f7";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_text,     col_mantle, col_crust   },
-	[SchemeSel]  = { col_text,     col_surface0, col_surface0 },
-	[SchemeTag]  = { col_overlay0, col_mantle, col_crust   },
+	[SchemeNorm] = { col_text,     col_crust,  col_crust   },
+	[SchemeSel]  = { col_text,     col_crust,  col_crust   },
+	[SchemeTag]  = { col_overlay0, col_crust,  col_crust   },
 };
 
 /* tagging */
@@ -91,6 +91,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_e,      spawn,          {.v = emailcmd } },
 	{ MODKEY,                       XK_r,      spawn,          {.v = filemancmd } },
 	{ MODKEY,                       XK_n,      spawn,          {.v = newscmd } },
+	{ MODKEY,                       XK_c,      spawn,          SHCMD("horizon-client") },
+	{ MODKEY,                       XK_space,  spawn,          SHCMD("rofi -show drun") },
 	{ MODKEY|ShiftMask,             XK_BackSpace, spawn,       SHCMD("sysact") },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("maimpick") },
 	{ MODKEY,             		      XK_o,      spawn,          SHCMD("~/.local/bin/passmenu") },
