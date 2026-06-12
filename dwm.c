@@ -194,6 +194,7 @@ static Client *nexttiled(Client *c);
 static void pop(Client *c);
 static void propertynotify(XEvent *e);
 static void quit(const Arg *arg);
+static void sighup(int unused);
 static Monitor *recttomon(int x, int y, int w, int h);
 static void resize(Client *c, int x, int y, int w, int h, int interact);
 static void resizeclient(Client *c, int x, int y, int w, int h);
@@ -271,6 +272,7 @@ static void (*handler[LASTEvent]) (XEvent *) = {
 };
 static Atom wmatom[WMLast], netatom[NetLast];
 static int running = 1;
+static int restartsig = 0;
 static Cur *cursor[CurLast];
 static Clr **scheme;
 static Display *dpy;
@@ -1359,6 +1361,13 @@ quit(const Arg *arg)
 	running = 0;
 }
 
+void
+sighup(int unused)
+{
+	restartsig = 1;
+	running = 0;
+}
+
 Monitor *
 recttomon(int x, int y, int w, int h)
 {
@@ -1647,6 +1656,11 @@ setup(void)
 	sa.sa_flags = SA_NOCLDSTOP | SA_NOCLDWAIT | SA_RESTART;
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGCHLD, &sa, NULL);
+
+	/* restart on SIGHUP */
+	sa.sa_handler = sighup;
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGHUP, &sa, NULL);
 
 	/* clean up any zombies (inherited from .xinitrc etc) immediately */
 	while (waitpid(-1, NULL, WNOHANG) > 0);
@@ -2290,5 +2304,7 @@ main(int argc, char *argv[])
 	run();
 	cleanup();
 	XCloseDisplay(dpy);
+	if (restartsig)
+		execvp(argv[0], argv);
 	return EXIT_SUCCESS;
 }
