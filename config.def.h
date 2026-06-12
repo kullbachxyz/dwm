@@ -25,10 +25,11 @@ static const char col_text[]        = "#cdd6f4";
 static const char col_overlay0[]    = "#6c7086";
 static const char col_surface0[]    = "#313244";
 static const char col_mauve[]       = "#cba6f7";
+static const char col_lavender[]    = "#b4befe";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
 	[SchemeNorm] = { col_text,     col_crust,  col_crust   },
-	[SchemeSel]  = { col_text,     col_crust,  col_crust   },
+	[SchemeSel]  = { col_text,     col_crust,  col_lavender  },
 	[SchemeTag]  = { col_overlay0, col_crust,  col_crust   },
 };
 
