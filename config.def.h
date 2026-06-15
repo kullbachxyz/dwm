@@ -15,11 +15,10 @@ static const int swallowfloating    = 0;        /* 1 means swallow floating wind
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[] = {
-	"monospace:size=13",
-	"Iosevka Nerd Font Propo:size=16",
+	"Iosevka Nerd Font Propo:size=13",
 /*)	"Noto Color Emoji:size=13", */
 };
-static const char dmenufont[]       = "monospace:size=13";
+static const char dmenufont[]       = "Iosevka Nerd Font Propo:size=13";
 static const char col_mantle[]      = "#181825";
 static const char col_crust[]       = "#11111b";
 static const char col_text[]        = "#cdd6f4";
