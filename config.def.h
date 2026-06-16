@@ -96,6 +96,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_w,      spawn,          {.v = browsercmd } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "wlctl", NULL } } },
 	{ MODKEY,                       XK_e,      spawn,          {.v = emailcmd } },
+	{ MODKEY|ShiftMask,             XK_e,      spawn,          SHCMD("thunderbird") },
 	{ MODKEY,                       XK_r,      spawn,          {.v = filemancmd } },
 	{ MODKEY,                       XK_n,      spawn,          {.v = newscmd } },
 	{ MODKEY,                       XK_c,      spawn,          SHCMD("horizon-client") },
