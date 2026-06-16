@@ -298,7 +298,11 @@ static xcb_connection_t *xcon;
 /* configuration, allows nested code to access above variables */
 #include "config.h"
 
-static unsigned int scratchtag = 1 << LENGTH(tags);
+static unsigned int scratchtags[2] = { 1 << LENGTH(tags), 1 << (LENGTH(tags) + 1) };
+static const struct { const char *name; const char * const *cmd; } scratchpads[] = {
+	{ scratchpadname,  scratchpadcmd  },
+	{ scratchpadname2, scratchpadcmd2 },
+};
 
 /* compile-time check if all tags fit into an unsigned int bit array. */
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
@@ -1218,12 +1222,16 @@ manage(Window w, XWindowAttributes *wa)
 	c->y = MAX(c->y, c->mon->wy);
 	c->bw = borderpx;
 
-	selmon->tagset[selmon->seltags] &= ~scratchtag;
-	if (!strcmp(c->name, scratchpadname)) {
-		c->mon->tagset[c->mon->seltags] |= c->tags = scratchtag;
-		c->isfloating = True;
-		c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
-		c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
+	for (unsigned int i = 0; i < LENGTH(scratchpads); i++)
+		selmon->tagset[selmon->seltags] &= ~scratchtags[i];
+	for (unsigned int i = 0; i < LENGTH(scratchpads); i++) {
+		if (!strcmp(c->name, scratchpads[i].name)) {
+			c->mon->tagset[c->mon->seltags] |= c->tags = scratchtags[i];
+			c->isfloating = True;
+			c->x = c->mon->wx + (c->mon->ww / 2 - WIDTH(c) / 2);
+			c->y = c->mon->wy + (c->mon->wh / 2 - HEIGHT(c) / 2);
+			break;
+		}
 	}
 
 	wc.border_width = c->bw;
@@ -1870,7 +1878,8 @@ spawn(const Arg *arg)
 
 	if (arg->v == dmenucmd)
 		dmenumon[0] = '0' + selmon->num;
-	selmon->tagset[selmon->seltags] &= ~scratchtag;
+	for (unsigned int i = 0; i < LENGTH(scratchpads); i++)
+		selmon->tagset[selmon->seltags] &= ~scratchtags[i];
 	if (fork() == 0) {
 		if (dpy)
 			close(ConnectionNumber(dpy));
@@ -1946,10 +1955,11 @@ togglescratch(const Arg *arg)
 {
 	Client *c;
 	unsigned int found = 0;
+	unsigned int stag = scratchtags[arg->ui];
 
-	for (c = selmon->clients; c && !(found = c->tags & scratchtag); c = c->next);
+	for (c = selmon->clients; c && !(found = c->tags & stag); c = c->next);
 	if (found) {
-		unsigned int newtagset = selmon->tagset[selmon->seltags] ^ scratchtag;
+		unsigned int newtagset = selmon->tagset[selmon->seltags] ^ stag;
 		if (newtagset) {
 			selmon->tagset[selmon->seltags] = newtagset;
 			focus(NULL);
@@ -1959,8 +1969,10 @@ togglescratch(const Arg *arg)
 			focus(c);
 			restack(selmon);
 		}
-	} else
-		spawn(arg);
+	} else {
+		Arg a = {.v = scratchpads[arg->ui].cmd};
+		spawn(&a);
+	}
 }
 
 void
