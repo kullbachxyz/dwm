@@ -1236,7 +1236,7 @@ manage(Window w, XWindowAttributes *wa)
 
 	wc.border_width = c->bw;
 	XConfigureWindow(dpy, w, CWBorderWidth, &wc);
-	XSetWindowBorder(dpy, w, TRANSPARENTPIXEL(scheme[SchemeNorm][ColBorder].pixel));
+	XSetWindowBorder(dpy, w, OPAQUEPIXEL(scheme[SchemeNorm][ColBorder].pixel));
 	configure(c); /* propagates border_width, if size doesn't change */
 	updatewindowtype(c);
 	updatesizehints(c);
@@ -2029,7 +2029,7 @@ unfocus(Client *c, int setfocus)
 	if (!c)
 		return;
 	grabbuttons(c, 0);
-	XSetWindowBorder(dpy, c->win, TRANSPARENTPIXEL(scheme[SchemeNorm][ColBorder].pixel));
+	XSetWindowBorder(dpy, c->win, OPAQUEPIXEL(scheme[SchemeNorm][ColBorder].pixel));
 	if (setfocus) {
 		XSetInputFocus(dpy, root, RevertToPointerRoot, CurrentTime);
 		XDeleteProperty(dpy, root, netatom[NetActiveWindow]);
