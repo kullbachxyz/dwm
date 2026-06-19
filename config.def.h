@@ -9,28 +9,27 @@
 #define STATUSBAR "dwmblocks"
 
 /* appearance */
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
+static const unsigned int borderpx  = 3;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[] = {
-	"Iosevka Nerd Font Propo:size=13",
-/*)	"Noto Color Emoji:size=13", */
+	"Noto Sans Mono:size=13",
+	"Noto Color Emoji:pixelsize=15:antialias=true:autohint=true",
 };
-static const char dmenufont[]       = "Iosevka Nerd Font Propo:size=13";
-static const char col_mantle[]      = "#181825";
-static const char col_crust[]       = "#11111b";
-static const char col_text[]        = "#cdd6f4";
-static const char col_overlay0[]    = "#6c7086";
-static const char col_surface0[]    = "#313244";
-static const char col_mauve[]       = "#cba6f7";
-static const char col_lavender[]    = "#b4befe";
+static const char dmenufont[]       = "Noto Sans Mono:size=13";
+static const char col_gray1[]       = "#222222";
+static const char col_gray2[]       = "#444444";
+static const char col_gray3[]       = "#bbbbbb";
+static const char col_gray4[]       = "#eeeeee";
+static const char col_cyan[]        = "#005577";
+static const char col_sel[]         = "#770000";
 static const char *colors[][3]      = {
 	/*               fg         bg         border   */
-	[SchemeNorm] = { col_text,     col_crust,  col_surface0 },
-	[SchemeSel]  = { col_text,     col_crust,  col_lavender  },
-	[SchemeTag]  = { col_overlay0, col_crust,  col_crust   },
+	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
+	[SchemeSel]  = { col_gray4, col_cyan,  col_sel  },
+	[SchemeTag]  = { col_gray3, col_gray1, col_gray1 },
 };
 
 /* tagging */
@@ -75,7 +74,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_mantle, "-nf", col_text, "-sb", col_surface0, "-sf", col_text, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
@@ -90,6 +89,7 @@ static const Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY|ShiftMask,             XK_b,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "bluetui", NULL } } },
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
+	{ MODKEY,                       XK_u,      spawn,          SHCMD("dmenuunicode") },
 	{ MODKEY,             		      XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_dead_acute,      togglescratch, {.ui = 0} },
 	{ MODKEY|ShiftMask,             XK_dead_acute,      togglescratch, {.ui = 1} },
