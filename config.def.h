@@ -19,10 +19,7 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[] = {
-	"Noto Sans Mono:size=13",
-	"Noto Color Emoji:pixelsize=15:antialias=true:autohint=true",
-};
+static const char *fonts[] = { "Noto Sans Mono:size=13", "Noto Color Emoji:pixelsize=15:antialias=true:autohint=true", };
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
 static const char col_gray3[]       = "#bbbbbb";
@@ -92,7 +89,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_dead_acute,      togglescratch, {.ui = 1} },
   { MODKEY,			                  XK_w,      spawn,          {.v = (const char*[]){ BROWSER, NULL } } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "wlctl", NULL } } },
-	{ MODKEY,                       XK_e,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "neomutt", NULL } } },
+	{ MODKEY,                       XK_e,      spawn,          SHCMD(TERMINAL " -e neomutt ; pkill -RTMIN+14 dwmblocks; rmdir ~/.abook 2>/dev/null") },
 	{ MODKEY|ShiftMask,		          XK_e,      spawn,          SHCMD(TERMINAL " -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") },
   { MODKEY,		                    XK_r,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "lfub", NULL } } },
   { MODKEY|ShiftMask,		          XK_r,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
