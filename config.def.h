@@ -77,17 +77,13 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
+static const char *termcmd[]  = { TERMINAL, NULL };
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-static const char *termcmd[]  = { "st", NULL };
 static const char scratchpadname[] = "scratchpad";
 static const char *scratchpadcmd[] = { "st", "-t", scratchpadname, "-g", "120x34", NULL };
 static const char scratchpadname2[] = "calculator";
 static const char *scratchpadcmd2[] = { "st", "-t", scratchpadname2, "-g", "50x15", "-e", "bc", "-ql", NULL };
-static const char *browsercmd[] = { "librewolf", NULL };
-static const char *emailcmd[] = { "st", "-e", "neomutt", NULL };
-static const char *newscmd[] = { "st", "-e", "newsraft", NULL };
-static const char *filemancmd[] = { "st", "-e", "lfub", NULL };
 
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
@@ -97,13 +93,14 @@ static const Key keys[] = {
 	{ MODKEY,             		      XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_dead_acute,      togglescratch, {.ui = 0} },
 	{ MODKEY|ShiftMask,             XK_dead_acute,      togglescratch, {.ui = 1} },
-	{ MODKEY,                       XK_w,      spawn,          {.v = browsercmd } },
+  { MODKEY,			                  XK_w,      spawn,          {.v = (const char*[]){ BROWSER, NULL } } },
 	{ MODKEY|ShiftMask,             XK_w,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "wlctl", NULL } } },
-	{ MODKEY,                       XK_e,      spawn,          {.v = emailcmd } },
-	{ MODKEY|ShiftMask,             XK_e,      spawn,          SHCMD("thunderbird") },
-	{ MODKEY,                       XK_r,      spawn,          {.v = filemancmd } },
-	{ MODKEY,                       XK_n,      spawn,          {.v = newscmd } },
-	{ MODKEY,                       XK_c,      spawn,          SHCMD("horizon-client") },
+	{ MODKEY,                       XK_e,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "neomutt", NULL } } },
+	{ MODKEY|ShiftMask,		          XK_e,      spawn,          SHCMD(TERMINAL " -e abook -C ~/.config/abook/abookrc --datafile ~/.config/abook/addressbook") },
+  { MODKEY,		                    XK_r,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "lfub", NULL } } },
+  { MODKEY|ShiftMask,		          XK_r,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
+	{ MODKEY|ShiftMask,             XK_n,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "newsboat", NULL } } },
+	{ MODKEY,                       XK_c,      spawn,          SHCMD("~/.local/bin/horizon-client") },
 	{ MODKEY,                       XK_space,  spawn,          SHCMD("rofi -show drun") },
 	{ MODKEY|ShiftMask,             XK_BackSpace, spawn,       SHCMD("sysact") },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("maimpick") },
