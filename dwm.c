@@ -1971,8 +1971,6 @@ spawn(const Arg *arg)
 {
 	struct sigaction sa;
 
-	if (arg->v == dmenucmd)
-		dmenumon[0] = '0' + selmon->num;
 	for (unsigned int i = 0; i < LENGTH(scratchpads); i++)
 		selmon->tagset[selmon->seltags] &= ~scratchtags[i];
 	if (fork() == 0) {
