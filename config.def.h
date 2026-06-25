@@ -94,12 +94,14 @@ static const Key keys[] = {
   { MODKEY,		                    XK_r,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "lfub", NULL } } },
   { MODKEY|ShiftMask,		          XK_r,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
 	{ MODKEY|ShiftMask,             XK_n,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "newsboat", NULL } } },
+ 	{ MODKEY,			                  XK_m,      spawn,           {.v = (const char*[]){ TERMINAL, "-e", "ncmpcpp", NULL } } },
+
 	{ MODKEY,                       XK_c,      spawn,          SHCMD("~/.local/bin/horizon-client") },
 	{ MODKEY,                       XK_space,  spawn,          SHCMD("rofi -show drun") },
 	{ MODKEY|ShiftMask,             XK_BackSpace, spawn,       SHCMD("sysact") },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("maimpick") },
 	{ MODKEY,             		      XK_o,      spawn,          SHCMD("~/.local/bin/passmenu") },
-	{ MODKEY,             		      XK_F3,     spawn,          SHCMD("displayselect") },
+
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
 	{ MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
@@ -111,6 +113,21 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_a,      togglegaps,     {0} },
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,	                      XK_q,      killclient,     {0} },
+
+  { MODKEY,			XK_period,     spawn,                  {.v = (const char*[]){ "mpc", "next", NULL } } },
+	{ MODKEY,			XK_comma,      spawn,                  {.v = (const char*[]){ "mpc", "prev", NULL } } },
+
+	{ MODKEY,     XK_F3,         spawn,                  SHCMD("displayselect") },
+ 	{ MODKEY,			XK_F4,         spawn,                  SHCMD(TERMINAL " -e pulsemixer; kill -44 $(pidof dwmblocks)") },
+ 	{ MODKEY,			XK_F8,         spawn,                  {.v = (const char*[]){ "mailsync", NULL } } },
+	{ MODKEY,			XK_F9,         spawn,                  {.v = (const char*[]){ "mounter", NULL } } },
+	{ MODKEY,			XK_F10,        spawn,                  {.v = (const char*[]){ "unmounter", NULL } } },
+	{ MODKEY,			XK_F11,        spawn,                  SHCMD("mpv --untimed --no-cache --no-osc --no-input-default-bindings --profile=low-latency --input-conf=/dev/null --title=webcam $(ls /dev/video[0,2,4,6,8] | tail -n 1)") },
+	{ MODKEY,			XK_F12,        spawn,                  SHCMD("remaps") },
+
+  { 0,				XK_Print,      spawn,                  SHCMD("maim pic-full-$(date '+%y%m%d-%H%M-%S').png") },
+	{ ShiftMask,			XK_Print,      spawn,                  {.v = (const char*[]){ "maimpick", NULL } } },
+
 	/*{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },*/
 	/*{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },*/
 	/*{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },*/
