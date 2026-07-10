@@ -26,8 +26,8 @@ static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
 static const char *fonts[] = {
     "Noto Sans Mono:size=13",
-    "Iosevka Nerd Font:size=13",
     "Noto Color Emoji:pixelsize=15:antialias=true:autohint=true",
+    "Iosevka Nerd Font:size=13",
 };
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
