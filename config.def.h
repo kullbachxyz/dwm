@@ -25,12 +25,12 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-/* MMD: Lato as the UI typeface; mono + Nerd kept as fallbacks for glyphs. */
+/* MMD: bar in the same monospace as st (IBM Plex Mono); Nerd/emoji as fallbacks. */
 static const char *fonts[] = {
-    "Lato:size=14",
-    "Noto Sans Mono:size=13",
-    "Noto Color Emoji:pixelsize=15:antialias=true:autohint=true",
-    "Iosevka Nerd Font:size=13",
+    "IBM Plex Mono:size=12",
+    "Noto Sans Mono:size=12",
+    "Noto Color Emoji:pixelsize=14:antialias=true:autohint=true",
+    "Iosevka Nerd Font:size=12",
 };
 /* E-Paper / Mudita Mindful Design — loaded from Xresources (dwm.*) at startup
  * and live-reloaded on theme switch. Buffers are writable so xrdb can update
@@ -109,7 +109,8 @@ static const Key keys[] = {
   { MODKEY,		                    XK_r,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "lfub", NULL } } },
   { MODKEY|ShiftMask,		          XK_r,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
 	{ MODKEY|ShiftMask,             XK_n,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "newsboat", NULL } } },
- 	{ MODKEY,			                  XK_m,      spawn,           {.v = (const char*[]){ TERMINAL, "-e", "ncmpcpp", NULL } } },
+ 	{ MODKEY,			                  XK_m,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "ncmpcpp", NULL } } },
+ 	{ MODKEY,         			        XK_x,      spawn,          SHCMD("xm4-menu") },
 
 	{ MODKEY,                       XK_c,      spawn,          SHCMD("~/.local/bin/horizon-client") },
 	{ MODKEY,                       XK_space,  spawn,          SHCMD("rofi -show drun") },
