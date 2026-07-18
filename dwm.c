@@ -41,6 +41,7 @@
 #endif /* XINERAMA */
 #include <X11/Xft/Xft.h>
 #include <X11/Xlib-xcb.h>
+#include <X11/Xresource.h>
 #include <xcb/res.h>
 
 #include "drw.h"
@@ -986,7 +987,7 @@ drawbar(Monitor *m)
 
 	if ((w = m->ww - tw - stw - x) > bh) {
 		if (m->sel) {
-			drw_setscheme(drw, scheme[m == selmon ? SchemeSel : SchemeNorm]);
+			drw_setscheme(drw, scheme[SchemeNorm]);
 			drw_text(drw, x, 0, w, bh, lrpad / 2, m->sel->name, 0);
 			if (m->sel->isfloating)
 				drw_rect(drw, x + boxs, boxs, boxw, boxw, m->sel->isfixed, 0);
@@ -1552,6 +1553,49 @@ pop(Client *c)
 	arrange(c->mon);
 }
 
+#define XRDB_LOAD_COLOR(R, V) \
+	if (XrmGetResource(xrdb, R, NULL, &type, &value) == True) { \
+		if (value.addr != NULL && strnlen(value.addr, 8) == 7 && value.addr[0] == '#') { \
+			int i = 1; \
+			for (; i <= 6; i++) { \
+				if (value.addr[i] < 48) break; \
+				if (value.addr[i] > 57 && value.addr[i] < 65) break; \
+				if (value.addr[i] > 70 && value.addr[i] < 97) break; \
+				if (value.addr[i] > 102) break; \
+			} \
+			if (i == 7) { \
+				strncpy(V, value.addr, 7); \
+				V[7] = '\0'; \
+			} \
+		} \
+	}
+
+void
+loadxrdb(void)
+{
+	char *resm;
+	XrmDatabase xrdb;
+	char *type;
+	XrmValue value;
+
+	XrmInitialize();
+	resm = XResourceManagerString(dpy);
+	if (!resm)
+		return;
+	xrdb = XrmGetStringDatabase(resm);
+	if (!xrdb)
+		return;
+
+	XRDB_LOAD_COLOR("dwm.normfgcolor", normfgcolor);
+	XRDB_LOAD_COLOR("dwm.normbgcolor", normbgcolor);
+	XRDB_LOAD_COLOR("dwm.normbordercolor", normbordercolor);
+	XRDB_LOAD_COLOR("dwm.selfgcolor", selfgcolor);
+	XRDB_LOAD_COLOR("dwm.selbgcolor", selbgcolor);
+	XRDB_LOAD_COLOR("dwm.selbordercolor", selbordercolor);
+
+	XrmDestroyDatabase(xrdb);
+}
+
 void
 propertynotify(XEvent *e)
 {
@@ -2073,10 +2117,11 @@ setup(void)
 	cursor[CurNormal] = drw_cur_create(drw, XC_left_ptr);
 	cursor[CurResize] = drw_cur_create(drw, XC_sizing);
 	cursor[CurMove] = drw_cur_create(drw, XC_fleur);
-	/* init appearance */
+	/* init appearance (colors from Xresources; SIGHUP restart re-reads them) */
+	loadxrdb();
 	scheme = ecalloc(LENGTH(colors), sizeof(Clr *));
 	for (i = 0; i < LENGTH(colors); i++)
-		scheme[i] = drw_scm_create(drw, colors[i], 3);
+		scheme[i] = drw_scm_create(drw, (const char **)colors[i], 3);
 	/* init system tray */
 	updatesystray();
 	/* init bars */
