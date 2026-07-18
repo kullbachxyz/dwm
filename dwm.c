@@ -1055,7 +1055,7 @@ focus(Client *c)
 		detachstack(c);
 		attachstack(c);
 		grabbuttons(c, 1);
-		if (!solitary(c))
+		if (singleborder || !solitary(c))
 			XSetWindowBorder(dpy, c->win, OPAQUEPIXEL(scheme[SchemeSel][ColBorder].pixel));
 		setfocus(c);
 	} else {
@@ -1709,7 +1709,7 @@ resizeclient(Client *c, int x, int y, int w, int h)
 	c->oldw = c->w; c->w = wc.width = w;
 	c->oldh = c->h; c->h = wc.height = h;
 	wc.border_width = c->bw;
-	if (solitary(c)) {
+	if (!singleborder && solitary(c)) {
 		c->w = wc.width += c->bw * 2;
 		c->h = wc.height += c->bw * 2;
 		wc.border_width = 0;
