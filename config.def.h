@@ -10,35 +10,41 @@
 
 /* appearance */
 static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const int singleborder       = 1;        /* 1: keep border on a single/monocle window; 0: hide it (noborder) */
 static const unsigned int systraypinning = 0;   /* 0: sloppy systray follows selected monitor, >0: pin systray to monitor X */
 static const unsigned int systrayonleft = 0;    /* 0: systray in the right corner, >0: systray on left of status text */
 static const unsigned int systrayspacing = 2;   /* systray spacing */
 static const int systraypinningfailfirst = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray        = 1;        /* 0 means no systray */
-static const unsigned int gappih    = 8;        /* horiz inner gap between windows */
-static const unsigned int gappiv    = 8;        /* vert inner gap between windows */
-static const unsigned int gappoh    = 8;        /* horiz outer gap between windows and screen edge */
-static const unsigned int gappov    = 8;        /* vert outer gap between windows and screen edge */
+static const unsigned int gappih    = 0;        /* horiz inner gap between windows */
+static const unsigned int gappiv    = 0;        /* vert inner gap between windows */
+static const unsigned int gappoh    = 0;        /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 0;        /* vert outer gap between windows and screen edge */
 static const int smartgaps          = 1;        /* 1 means no outer gap when there is only 1 window */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
+/* MMD: Lato as the UI typeface; mono + Nerd kept as fallbacks for glyphs. */
 static const char *fonts[] = {
+    "Lato:size=14",
     "Noto Sans Mono:size=13",
     "Noto Color Emoji:pixelsize=15:antialias=true:autohint=true",
     "Iosevka Nerd Font:size=13",
 };
-static const char col_gray1[]       = "#222222";
-static const char col_gray2[]       = "#444444";
-static const char col_gray3[]       = "#bbbbbb";
-static const char col_gray4[]       = "#eeeeee";
-static const char col_cyan[]        = "#005577";
-static const char col_sel[]         = "#770000";
-static const char *colors[][3]      = {
-	/*               fg         bg         border   */
-	[SchemeNorm] = { col_gray3, col_gray1, col_gray2 },
-	[SchemeSel]  = { col_gray4, col_cyan,  col_sel  },
+/* E-Paper / Mudita Mindful Design — loaded from Xresources (dwm.*) at startup
+ * and live-reloaded on theme switch. Buffers are writable so xrdb can update
+ * them in place; the values here are the light-theme fallback. */
+static char normfgcolor[16]     = "#26241f"; /* ink   */
+static char normbgcolor[16]     = "#eae7de"; /* paper */
+static char normbordercolor[16] = "#c4beb2"; /* faint */
+static char selfgcolor[16]      = "#eae7de"; /* paper */
+static char selbgcolor[16]      = "#26241f"; /* ink   */
+static char selbordercolor[16]  = "#26241f"; /* ink   */
+static char *colors[][3]      = {
+	/*               fg              bg              border          */
+	[SchemeNorm] = { normfgcolor,    normbgcolor,    normbordercolor }, /* bar / unfocused     */
+	[SchemeSel]  = { selfgcolor,     selbgcolor,     selbordercolor  }, /* active tag / focused */
 };
 
 /* tagging */
@@ -109,7 +115,7 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_space,  spawn,          SHCMD("rofi -show drun") },
 	{ MODKEY|ShiftMask,             XK_BackSpace, spawn,       SHCMD("sysact") },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("maimpick") },
-	{ MODKEY,             		      XK_o,      spawn,          SHCMD("~/.local/bin/passmenu") },
+	{ MODKEY,             		      XK_o,      spawn,          SHCMD("keepmenu") },
 	{ MODKEY|ShiftMask,             XK_o,      spawn,          {.v = (const char*[]){ "keepassxc", NULL } } },
 	{ MODKEY,                       XK_a,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "abpl", NULL } } },
 
