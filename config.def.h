@@ -113,7 +113,7 @@ static const Key keys[] = {
  	{ MODKEY,         			        XK_x,      spawn,          SHCMD("xm4-menu") },
 
 	{ MODKEY,                       XK_c,      spawn,          SHCMD("~/.local/bin/horizon-client") },
-	{ MODKEY,                       XK_space,  spawn,          SHCMD("rofi -show drun") },
+	{ MODKEY,                       XK_space,  spawn,          SHCMD("j4-dmenu-desktop --dmenu='dmenu -i -c -l 12 -p Apps'") },
 	{ MODKEY|ShiftMask,             XK_BackSpace, spawn,       SHCMD("sysact") },
 	{ MODKEY|ShiftMask,             XK_s,      spawn,          SHCMD("maimpick") },
 	{ MODKEY,             		      XK_o,      spawn,          SHCMD("keepmenu") },
