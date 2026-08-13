@@ -25,7 +25,7 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-/* MMD: bar in the same monospace as st (IBM Plex Mono). Iosevka Nerd Font MUST
+/* Bar in the same monospace as st (IBM Plex Mono). Iosevka Nerd Font MUST
  * come before Noto Color Emoji, else emoji grabs the Nerd PUA glyphs first. */
 static const char *fonts[] = {
     "IBM Plex Mono:size=12",
