@@ -25,22 +25,23 @@ static const unsigned int snap      = 32;       /* snap pixel */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-/* MMD: bar in the same monospace as st (IBM Plex Mono); Nerd/emoji as fallbacks. */
+/* MMD: bar in the same monospace as st (IBM Plex Mono). Iosevka Nerd Font MUST
+ * come before Noto Color Emoji, else emoji grabs the Nerd PUA glyphs first. */
 static const char *fonts[] = {
     "IBM Plex Mono:size=12",
+    "Iosevka Nerd Font:size=12",
     "Noto Sans Mono:size=12",
     "Noto Color Emoji:pixelsize=14:antialias=true:autohint=true",
-    "Iosevka Nerd Font:size=12",
 };
-/* E-Paper / Mudita Mindful Design — loaded from Xresources (dwm.*) at startup
+/* Default dwm gray + blue — loaded from Xresources (dwm.*) at startup
  * and live-reloaded on theme switch. Buffers are writable so xrdb can update
- * them in place; the values here are the light-theme fallback. */
-static char normfgcolor[16]     = "#26241f"; /* ink   */
-static char normbgcolor[16]     = "#eae7de"; /* paper */
-static char normbordercolor[16] = "#c4beb2"; /* faint */
-static char selfgcolor[16]      = "#eae7de"; /* paper */
-static char selbgcolor[16]      = "#26241f"; /* ink   */
-static char selbordercolor[16]  = "#26241f"; /* ink   */
+ * them in place; the values here are the compiled-in fallback. */
+static char normfgcolor[16]     = "#bbbbbb"; /* gray3 */
+static char normbgcolor[16]     = "#222222"; /* gray1 */
+static char normbordercolor[16] = "#444444"; /* gray2 */
+static char selfgcolor[16]      = "#eeeeee"; /* gray4 */
+static char selbgcolor[16]      = "#005577"; /* blue  */
+static char selbordercolor[16]  = "#005577"; /* blue  */
 static char *colors[][3]      = {
 	/*               fg              bg              border          */
 	[SchemeNorm] = { normfgcolor,    normbgcolor,    normbordercolor }, /* bar / unfocused     */
