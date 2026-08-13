@@ -33,9 +33,8 @@ static const char *fonts[] = {
     "Noto Sans Mono:size=12",
     "Noto Color Emoji:pixelsize=14:antialias=true:autohint=true",
 };
-/* Default dwm gray + blue — loaded from Xresources (dwm.*) at startup
- * and live-reloaded on theme switch. Buffers are writable so xrdb can update
- * them in place; the values here are the compiled-in fallback. */
+/* Standard dwm gray + blue (fixed; st gets the themed palette, not dwm).
+ * Optional dwm.* Xresources override these; unset -> these values win. */
 static char normfgcolor[16]     = "#bbbbbb"; /* gray3 */
 static char normbgcolor[16]     = "#222222"; /* gray1 */
 static char normbordercolor[16] = "#444444"; /* gray2 */

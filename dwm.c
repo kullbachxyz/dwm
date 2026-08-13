@@ -1586,6 +1586,8 @@ loadxrdb(void)
 	if (!xrdb)
 		return;
 
+	/* dwm keeps its own fixed gray+blue (like Luke's shipped default). These
+	 * dwm.* resources are optional overrides; unset -> the hardcoded values win. */
 	XRDB_LOAD_COLOR("dwm.normfgcolor", normfgcolor);
 	XRDB_LOAD_COLOR("dwm.normbgcolor", normbgcolor);
 	XRDB_LOAD_COLOR("dwm.normbordercolor", normbordercolor);
