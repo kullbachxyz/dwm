@@ -104,12 +104,12 @@ static const Key keys[] = {
   { MODKEY|ShiftMask,		          XK_r,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "htop", NULL } } },
 	{ MODKEY|ShiftMask,             XK_n,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "newsboat", NULL } } },
 /* 	{ MODKEY,			                  XK_m,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "ncmpcpp", NULL } } },*/
- 	{ MODKEY,         			        XK_x,      spawn,          SHCMD("xm4-menu") },
+ 	{ MODKEY,         			        XK_x,      spawn,          SHCMD("urlget") },
 
  	{ MODKEY,                       XK_c,      spawn,          {.v = (const char*[]){ "horizon-client", NULL } } },
 
 	{ MODKEY|ShiftMask,             XK_BackSpace, spawn,       SHCMD("sysact") },
-	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = (const char*[]){ TERMINAL, "-e", "maim -s | xclip -selection clipboard -t image/png", NULL } } },
+	{ MODKEY|ShiftMask,             XK_s,      spawn,          {.v = (const char*[]){ "maimpick", NULL } } },
 	{ MODKEY|ShiftMask,             XK_o,      spawn,          {.v = (const char*[]){ "keepassxc", NULL } } },
 
 	{ MODKEY,                       XK_b,      togglebar,      {0} },
